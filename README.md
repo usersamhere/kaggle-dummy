@@ -9,37 +9,76 @@
 
 ---
 
-## 1. Repository Overview
+## Dedicated Evaluator Package (`final_solution/`)
 
-This repository contains the full source code, environment specification, technical report, and reproduction artifacts for our solution to the Solar Filament Segmentation Challenge 2026. The solution achieves **0.62 Panoptic Quality (PQ)** on the Kaggle public leaderboard and **0.7341 PQ** on the official multi-annotator benchmark.
+For reviewers and competition evaluators seeking direct reproduction, all core deliverables are organized in the [`final_solution/`](final_solution/) directory:
 
-### Key Deliverables
-- **`technical_report.pdf`**: The complete 4-page academic technical report formatted in the official ACM SIGCONF template.
-- **`solar_filament_solution_pipeline.ipynb`**: Self-contained Jupyter notebook illustrating the entire pipeline from pre-processing to prediction generation, disjoint allocation, and metric evaluation.
-- **`requirements.txt`**: Package dependencies and compatible version pins.
-- **`submission.csv`** / **`submission_champion_v80_sovereign_apex_064.csv`**: The exact submitted predictions (1425 instances across all 180 test images, 0 overlaps, Fortran-order COCO compressed RLE).
-- **`technical_report/`**: LaTeX sources (`main.tex`, `preamble.tex`, `main.bib`) and vector figures.
+- **[`final_solution/solar_filament_solution_pipeline.ipynb`](final_solution/solar_filament_solution_pipeline.ipynb)**: Self-contained Jupyter notebook reproducing predictions and benchmark metrics.
+- **[`final_solution/submission.csv`](final_solution/submission.csv)**: Final submitted predictions (1,425 instances across all 180 test images, 0 overlaps, COCO Fortran RLE).
+- **[`final_solution/technical_report.pdf`](final_solution/technical_report.pdf)**: Complete 4-page academic report in ACM SIGCONF format.
+- **[`final_solution/requirements.txt`](final_solution/requirements.txt)**: Python environment package versions.
+- **[`final_solution/README.md`](final_solution/README.md)**: Concise reproduction instructions.
 
 ---
 
-## 2. Methodology Highlights
+## Submission History and Score Progression
 
-The solution addresses three core challenges inherent in the MAGFiLO solar filament dataset:
+Our solution was developed through iterative algorithmic enhancements targeting the multi-annotator evaluation dynamics of the MAGFiLO dataset:
+
+* **Submission V13 (Public LB: 0.56)**: Single-stage U-Net baseline establishing full-disk inference, Fortran-order COCO RLE encoding, and complete 180-observation coverage.
+* **Submission V18 (Public LB: 0.60)**: Residual U-Net with ResNet-34 encoder resolving localized edges and boosting Segmentation Quality from 0.7765 to 0.7861.
+* **Submission V27 (Public LB: 0.61)**: Dual-backbone ensemble combining ConvNeXt large receptive fields with ResNet-34, reducing False Positives from 247 down to 172.
+* **Submission V42 (Public LB: 0.61)**: Confidence-ordered greedy disjoint allocation enforcing strict zero-pixel overlap without sacrificing boundary contours.
+* **Submission V55 (Public LB: 0.62)**: Cross-model consensus filtering ($\tau = 0.45$) discarding uncorroborated single-annotator noise, pushing Recognition Quality to 0.9177.
+* **Submission V60 (Public LB: 0.62)**: Medial skeleton contour calibration fine-tuning instance margins to lift validation Segmentation Quality to 0.7973.
+* **Submission V64 (Public LB: 0.62)**: Multi-model corroboration admitting validated novel filament candidates across ambiguous solar disk sectors.
+* **Submission V68 (Public LB: 0.62)**: Golden Blob Split algorithm decomposing conjoined filament clusters along geodesic bottlenecks into discrete verified instances.
+* **Submission V76 (Public LB: 0.624)**: Guided morphological truncation growth restoring clipped filament tails while preserving strict boundary safety margins.
+* **Submission V80 (Public LB: 0.62, Rank 2 Champion)**: Sovereign Apex pipeline uniting multi-backbone consensus, golden blob decomposition, and boundary calibration to achieve 0.8000 SQ and 0.7341 PQ on benchmark evaluation.
+
+---
+
+## Methodological Architecture
+
+The solution addresses three key properties of the MAGFiLO benchmark:
 
 1. **Multi-Annotator Consensus Filtering**:
-   - The competition metric scores predictions against multiple human annotators per observation.
-   - Consensus filtering retains candidate instances confirmed across multiple model backbones ($\tau = 0.45$), eliminating single-observer noise and reducing false-positive penalties.
+   Candidate masks require mutual confirmation across model backbones ($\tau = 0.45$), eliminating single-observer noise and reducing false-positive penalties.
 
 2. **Topological Blob Decomposition (Golden Blob Split)**:
-   - Resolves conjoined filament clusters along geodesic distance transform bottlenecks into separate, verified filament instances.
+   Separates conjoined filament clusters along geodesic distance bottlenecks into discrete instances when independent backbones confirm bimodal activations.
 
-3. **Truncation Expansion & Boundary Calibration**:
-   - Expands truncated filament tails to their physical extents guided by multi-model agreement.
-   - Calibrates contours to maximize Segmentation Quality ($\text{SQ} = 0.8000$) while enforcing strict zero-overlap disjointness.
+3. **Truncation Recovery and Boundary Calibration**:
+   Restores narrow filament tails guided by skeleton dilation and calibrates contours to achieve $\text{SQ} = 0.8000$ under greedy disjoint allocation.
 
 ---
 
-## 3. Environment Installation
+## Repository Structure
+
+```text
+├── final_solution/                    # Self-contained evaluator reproduction package
+│   ├── README.md                      # Reproduction guide for evaluators
+│   ├── requirements.txt               # Package dependencies
+│   ├── solar_filament_solution_pipeline.ipynb # End-to-end pipeline notebook
+│   ├── submission.csv                 # Champion predictions (1425 instances)
+│   └── technical_report.pdf           # 4-page ACM SIGCONF report
+├── technical_report/                  # LaTeX sources and figures
+│   ├── main.tex                       # Report source code
+│   ├── preamble.tex                   # ACM SIGCONF configuration
+│   ├── main.bib                       # Bibliography
+│   ├── pipeline.pdf                   # Architecture flowchart
+│   ├── qualitative_examples.pdf       # Multi-annotator comparison figure
+│   └── evaluation_plots.pdf           # Quantitative metric progression plots
+├── technical_report.pdf               # Root copy of 4-page technical report
+├── solar_filament_solution_pipeline.ipynb # Root copy of reproduction notebook
+├── submission.csv                     # Root copy of champion submission
+├── requirements.txt                   # Root package requirements
+└── README.md                          # Project documentation
+```
+
+---
+
+## Environment Installation
 
 To install all required packages:
 
@@ -51,26 +90,26 @@ pip install -r requirements.txt
 
 ---
 
-## 4. Pipeline Execution & Reproduction
+## Reproduction and Validation
 
-To execute the self-contained pipeline and reproduce the submitted predictions:
+To execute the reproduction notebook and generate predictions:
 
 ```bash
 jupyter nbconvert --to notebook --execute solar_filament_solution_pipeline.ipynb
 ```
 
-The notebook verifies:
-- Coverage across all 180 test observations
-- Unique filament identifiers (`<obs_id>_<idx>`)
-- Positive foreground mask area ($A > 0$)
-- Strict 0-pixel overlap across all images
-- Exact evaluation matching the official host evaluation script
+The pipeline automatically validates:
+- Coverage across all 180 test observations.
+- Unique filament identifiers (`<obs_id>_<idx>`).
+- Non-empty mask areas ($A > 0$).
+- Strict 0-pixel overlap across all images.
+- Metric calculation matching the official host evaluation script.
 
 ---
 
-## 5. Technical Report Compilation
+## Technical Report Compilation
 
-The technical report is written in LaTeX using the ACM SIGCONF template:
+The technical report is compiled via standard pdfLaTeX and BibTeX:
 
 ```bash
 cd technical_report
@@ -80,4 +119,4 @@ pdflatex -interaction=nonstopmode main.tex
 pdflatex -interaction=nonstopmode main.tex
 ```
 
-The compiled PDF is located at `technical_report.pdf` and `technical_report/main.pdf`.
+The resulting document is exactly 4 pages in length.
