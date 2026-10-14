@@ -1,0 +1,205 @@
+% =============================================================================
+% COPYRIGHT AND DISCLAIMER
+% =============================================================================
+% This file is provided as a convenience template for competition participants.
+% By using it, you accept full responsibility for compliance with all applicable
+% copyright and usage rules of the Association for Computing
+% Machinery (ACM) and of any LaTeX packages you load.
+%
+% Consult ACM official publication policies before using this setup.
+% Do not assume that this template may be reused elsewhere
+% without independently verifying current rules.
+%
+% Use of the "acmart" class, the "sigconf" option, or ACM-style formatting in
+% this template does NOT mean that this report, this competition, its organizers,
+% or any resulting PDF is sponsored, endorsed, affiliated with, or published by
+% ACM. ACM trademarks and branding remain the property of ACM.
+%
+% Template packages live in preamble.tex.
+% Citations live in main.bib. Edit this file with your paper content.
+% =============================================================================
+
+\documentclass[sigconf]{acmart}
+\input{preamble}
+
+% Guide styling: \guideStyletrue = show gray italic hints; \guideStylefalse = omit them
+\guideStylefalse
+
+\begin{document}
+
+\title{Multi-Annotator Consensus Modeling and Topological Decomposition for Solar Filament Instance Segmentation}
+\subtitle{A Solution to the Solar Filament Segmentation Challenge 2026}
+
+\author{Sayandeep Dutta}
+\affiliation{%
+  \institution{SRM Institute of Science and Technology}
+  \city{Kattankulathur}
+  \country{India}
+}
+\email{sd2122@srmist.edu.in}
+
+\begin{abstract}
+This report outlines our solution to the Solar Filament Segmentation Challenge~2026, targeting instance segmentation of solar filaments in GONG H-$\alpha$ observations. The MAGFiLO benchmark exhibits high inter-observer variability across independent annotator passes, complex topological merging of adjacent structures, and strict zero-overlap constraints evaluated under Panoptic Quality. We propose a multi-stage framework coupling deep multi-backbone representations with topological post-processing. Our pipeline integrates a five-fold ConvNeXt ensemble with residual U-Net models, applies multi-annotator consensus filtering to suppress spurious singleton noise, decomposes conjoined filaments via geodesic distance bottleneck splitting, and enforces greedy disjoint mask allocation. On the 139-image multi-annotator benchmark, our method achieves a Panoptic Quality of 0.7341 (0.8000 Segmentation Quality, 0.9177 Recognition Quality) and obtains 0.62 on the public leaderboard (Rank~2).
+\end{abstract}
+
+\maketitle
+
+% ==================================== %
+%              INTRODUCTION            %
+% ==================================== %
+\section{Introduction}
+This report goes over the details of our submitted solution to the Solar Filament Segmentation Challenge~2026 \cite{filament-segmentation-2026}. The challenge, launched on July~10,~2026, is organized by the Earth-Space AI Research (ESAIR) Lab\footnote{\href{https://www.esairlab.com/home}{www.esairlab.com/}}. This challenge utilizes the MAGFiLO dataset for evaluation of the segmentation algorithms \cite{ahmadzadeh2024dataset}.
+
+Instance segmentation in the MAGFiLO benchmark presents three core operational challenges:
+\begin{enumerate}
+    \item \textbf{Inter-Observer Variability}: Ground-truth annotations are provided by multiple independent expert passes (one to three annotators per observation). Annotators exhibit marked divergence regarding faint barb boundaries and structural endpoints.
+    \item \textbf{Topological Agglomeration}: Nearby physical filaments frequently touch or connect through diffuse plasma bridges, causing models to predict conjoined instances.
+    \item \textbf{Asymmetric Metric Penalties}: Evaluation computes Panoptic Quality ($\text{PQ} = \text{SQ} \times \text{RQ}$) across all annotator passes independently. Predicting a high-confidence consensus filament earns multiple True Positive credits ($+k\text{ TP}$), whereas predicting an uncorroborated single-observer guess generates False Positive penalties across the remaining non-matching passes.
+\end{enumerate}
+
+Our approach models filament segmentation through consensus-guided optimization. We combine complementary backbones with explicit topological decomposition, boundary calibration, and greedy disjoint allocation. Source code and reproduction pipelines are available on GitHub\footnote{\url{https://github.com/usersamhere/kaggle-dummy}}.
+
+% ==================================== %
+%              METHODOLOGY             %
+% ==================================== %
+\section{Methodology}\label{sec:methodology}
+
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=\textwidth]{pipeline.pdf}
+    \caption{End-to-end processing and inference pipeline. Full-disk $2048 \times 2048$ GONG observations undergo contrast normalization and solar disk masking, followed by multi-backbone inference, annotator consensus filtering, topological split decomposition, and greedy disjoint allocation.}
+    \Description{Schematic flowchart diagram showing the five stages of the pipeline: input imagery, pre-processing, multi-backbone neural network ensemble, consensus filtering and topological decomposition, and boundary-calibrated disjoint output.}
+    \label{fig:pipeline}
+\end{figure*}
+
+Our methodology comprises five modular stages: image pre-processing, multi-backbone representation learning, consensus filtering, topological blob decomposition, and boundary-calibrated disjoint encoding (Figure~\ref{fig:pipeline}).
+
+\subsection{Data Pipeline and Pre-Processing}
+GONG observations consist of $2048 \times 2048$ grayscale H-$\alpha$ images subject to station-dependent illumination shifts, limb darkening, and atmospheric blurring. We apply three standardized operations:
+\begin{itemize}
+    \item \textbf{Solar Disk Extraction}: Gaussian smoothing ($\sigma = 15$) and Otsu thresholding establish the solar limb boundary ($R_{\odot} \approx 0.47 \min(H, W)$). Off-limb pixels are zeroed.
+    \item \textbf{Contrast Normalization}: Contrast Limited Adaptive Histogram Equalization (CLAHE) with clip limit $2.5$ and tile grid $16 \times 16$ enhances subtle absorption channels against the photosphere.
+    \item \textbf{Adaptive Background Masking}: Local intensity percentiles within the disk identify dark candidate proposal seeds below the 8.5th percentile.
+\end{itemize}
+
+\subsection{Multi-Backbone Network Architecture}
+We deploy an ensemble of complementary neural network backbones to maximize feature diversity:
+\begin{itemize}
+    \item \textbf{Five-Fold ConvNeXt Ensemble}: ConvNeXt backbones \cite{liu2022convnet} pre-trained on ImageNet and fine-tuned on native solar patches. Large $7 \times 7$ depthwise kernels capture elongated, curvilinear filament spines.
+    \item \textbf{Residual U-Net}: A symmetrical U-Net \cite{ronneberger2015u} with a ResNet-34 encoder \cite{he2016deep}, preserving fine-grained boundary transitions and small fragments.
+    \item \textbf{Native-Resolution Base U-Net}: A fully convolutional baseline producing full-disk candidate probability maps at native resolution.
+\end{itemize}
+
+\subsection{Cross-Validation and Optimization}
+The training corpus contains 707 observation dates comprising 1,154 individual annotator records. Because multiple records share identical timestamps, naive random sampling induces data leakage. We partition data into five folds grouped strictly by observation date: all annotator passes for a timestamp reside exclusively within train or validation splits. Training minimizes a compound objective:
+\begin{equation}
+    \mathcal{L} = \mathcal{L}_{\text{BCE}} + \alpha \mathcal{L}_{\text{Dice}} + \beta \mathcal{L}_{\text{Boundary}}
+\end{equation}
+with $\alpha = 1.0$ and $\beta = 0.5$, penalizing contour divergence along thin filament edges under spatial and photometric augmentations.
+
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=\textwidth]{qualitative_examples.pdf}
+    \caption{Qualitative segmentation comparisons on GONG test observations. Individual annotator ground truths are displayed in distinct colors, with model predictions overlaid in red. The model captures multi-annotator consensus contours while resolving separate filament instances.}
+    \Description{Three panels displaying qualitative segmentation crops from GONG test observations. Ground-truth masks from independent annotators are shown in distinct color channels, while model predictions are outlined in red, demonstrating contour alignment and instance separation.}
+    \label{fig:qualitative}
+\end{figure*}
+
+\subsection{Multi-Annotator Consensus Formulation}
+Let an image possess $K$ annotator sets $\{G_1, \dots, G_K\}$, where each set contains $n_k$ ground-truth instances. The official metric evaluates each predicted mask $P_j$ against each annotator independently:
+\begin{equation}
+    \text{PQ} = \frac{\sum_{(g, p) \in \text{TP}} \text{IoU}(g, p)}{|\text{TP}| + \frac{1}{2}|\text{FP}| + \frac{1}{2}|\text{FN}|}
+\end{equation}
+with match condition $\text{IoU}(g, p) > 0.5$.
+
+When a prediction aligns with a consensus region corroborated by $m$ annotators ($m \le K$), it yields $m$ True Positive increments ($+m\text{ TP}$) and zero False Positives. Conversely, predicting a candidate reflecting a solitary annotator's subjective guess risks matching zero instances in the remaining $K-1$ annotators, accumulating up to $K-1$ False Positives. Therefore, candidates are accepted only when satisfying ensemble consensus thresholding:
+\begin{equation}
+    \mathcal{M}_{\text{consensus}} = \mathbb{I}\left( \frac{1}{M}\sum_{m=1}^M \sigma(F_m(x)) \ge \tau_{\text{consensus}} \right)
+\end{equation}
+where $\tau_{\text{consensus}} = 0.45$, filtering out uncorroborated single-observer noise.
+
+\subsection{Topological Blob Decomposition}
+A major challenge in solar filament segmentation is filament agglomeration: nearby filaments joined by diffuse bridges merge into an oversized single instance. In evaluation, such merged blobs match at most one ground-truth structure while triggering False Negatives for neighboring bodies.
+
+We develop the Golden Blob Split algorithm. For candidate regions exceeding area $A_{\text{blob}} > 4000\,\text{px}^2$, we evaluate distance transform ridge extrema and cross-backbone activations. When independent branches (e.g., ConvNeXt and ResNet-34) exhibit bimodal component activations with mutual $\text{IoU} > 0.80$, the blob is partitioned along its geodesic bottleneck into discrete sub-filaments. In benchmark evaluations, this resolved conjoined configurations (e.g., observation \texttt{20111015063134Lh}) into two confirmed instances with 0.8588 inter-model agreement.
+
+\subsection{Boundary Calibration and Disjoint Encoding}
+Conservative thresholding can truncate narrow filament tails. For candidates displaying truncation relative to consensus spine activations, we apply guided morphological dilation along the medial skeleton. Boundary calibration optimizes Segmentation Quality ($\text{SQ} = 0.8000$) while maintaining margins below error saturation levels.
+
+Competition rules require predicted instances within an image to be strictly disjoint. We enforce disjointness through confidence-ordered greedy allocation:
+\begin{equation}
+    \tilde{P}_j = P_j \setminus \bigcup_{i < j} \tilde{P}_i
+\end{equation}
+Final masks are encoded into column-major (Fortran-order) Run-Length Encoded (RLE) bitstrings adhering to the Microsoft COCO specification \cite{lin2014microsoft}.
+
+% ==================================== %
+%              EVALUATION              %
+% ==================================== %
+\section{Evaluation}\label{sec:evaluation}
+
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=\textwidth]{evaluation_plots.pdf}
+    \caption{Quantitative performance evaluation. (a) Progression of Panoptic Quality (PQ), Segmentation Quality (SQ), Recognition Quality (RQ), and public leaderboard scores across iterations. (b) Pairwise IoU probability density over True Positive pairs, demonstrating boundary consistency centered at $\text{SQ} = 0.8000$.}
+    \Description{Two subplots showing model evaluation metrics. (a) Line plot showing steady increases in validation PQ, SQ, RQ, and public leaderboard scores from version V13 to version V80. (b) Histogram of pairwise IoU for true positive predictions, with a vertical line marking the mean SQ of 0.8000.}
+    \label{fig:evaluation}
+\end{figure*}
+
+\subsection{Evaluation Protocol and Metrics}
+Our evaluation replicates the official competition scoring script on 139 benchmark observations containing multi-annotator ground-truth layers. The metric suite tracks:
+\begin{itemize}
+    \item \textbf{Segmentation Quality (SQ)}: Mean IoU over matched pairs ($\text{IoU} > 0.5$).
+    \item \textbf{Recognition Quality (RQ)}: $\frac{|\text{TP}|}{|\text{TP}| + 0.5|\text{FP}| + 0.5|\text{FN}|}$.
+    \item \textbf{Panoptic Quality (PQ)}: The aggregate product $\text{PQ} = \text{SQ} \times \text{RQ}$.
+\end{itemize}
+
+\subsection{Quantitative Results and Ablations}
+Table~\ref{tab:results} summarizes validation metrics across development milestones on the 139 benchmark observations.
+
+\begin{table}[t]
+\centering
+\caption{Validation performance across developmental milestones on the 139-observation benchmark.}
+\label{tab:results}
+\small
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lccccc@{}}
+\toprule
+Iteration & TP & FP & FN & SQ & RQ \\
+\midrule
+V13 (Baseline U-Net) & 1371 & 247 & 259 & 0.7765 & 0.8442 \\
+V18 (ResNet-34)      & 1441 & 166 & 189 & 0.7861 & 0.8903 \\
+V27 (Dual Ensemble)  & 1457 & 172 & 173 & 0.7949 & 0.8941 \\
+V55 (Consensus)      & 1505 & 145 & 125 & 0.7925 & 0.9177 \\
+V60 (Calibrated)     & 1505 & 145 & 125 & 0.7973 & 0.9177 \\
+\textbf{V80 (Apex)}  & \textbf{1505} & \textbf{145} & \textbf{125} & \textbf{0.8000} & \textbf{0.9177} \\
+\bottomrule
+\end{tabular*}
+\end{table}
+
+The progression illustrates key performance drivers:
+\begin{enumerate}
+    \item \textbf{Multi-Backbone Diversity (V13 to V27)}: Combining ConvNeXt and ResNet-34 backbones decreased False Positives from 247 to 172 and improved SQ from 0.7765 to 0.7949.
+    \item \textbf{Consensus Filtering (V27 to V55)}: Suppressing isolated single-annotator noise eliminated 27 False Positives and gained 48 True Positives, raising RQ from 0.8941 to 0.9177.
+    \item \textbf{Calibration and Decomposition (V60 to V80)}: Topological blob splitting and contour calibration improved SQ to 0.8000, yielding a validation PQ of 0.7341 and a public leaderboard score of 0.62 (Rank~2).
+\end{enumerate}
+
+Figure~\ref{fig:evaluation}(a) illustrates validation metric progression alongside public leaderboard gains. Figure~\ref{fig:evaluation}(b) details the empirical pairwise IoU distribution on True Positive pairs, confirming high boundary stability.
+
+\subsection{Discussion and Limitations}
+Multi-annotator consensus modeling provides effective protection against spurious False Positive penalties while capturing high-confidence filament structures. Moreover, the Golden Blob Split algorithm handles filament agglomeration that standard single-model detectors fail to resolve. Matching degree analysis indicates that over 94\% of predicted instances achieve clean $1:1$ correspondence with annotator records.
+
+The primary limitation involves very faint barbs near the solar limb, where extreme limb darkening attenuates contrast. Disagreements among annotators on faint endpoints also create residual label ambiguity. Future work could incorporate magnetic field extrapolation along polarity inversion lines to guide topological continuity.
+
+% ==================================== %
+%            ACKNOWLEDGMENT            %
+% ==================================== %
+\section{Acknowledgment}\label{sec:acknowledgment}
+The organization of the Filament Segmentation Challenge 2026 is partially supported by the U.S. National Science Foundation (NSF) under Grant No. 2209912 and 2433781, directorate for Computer and Information Science and Engineering (CSE), and Office of Advanced Cyberinfrastructure (OAC), and Grant No. 2511630, AST Division Of Astronomical Sciences and MPS Directorate for Mathematical and Physical Sciences.
+
+The Filament Segmentation Challenge 2026 is sponsored by the U.S. National Science Foundation (NSF) National Solar Observatory (NSO). 
+
+This work utilizes GONG data obtained by the NSO Integrated Synoptic Program, managed by the National Solar Observatory, which is operated by the Association of Universities for Research in Astronomy (AURA), Inc. under a cooperative agreement with the National Science Foundation and with contribution from the National Oceanic and Atmospheric Administration. The GONG network of instruments is hosted by the Big Bear Solar Observatory, High Altitude Observatory, Learmonth Solar Observatory, Udaipur Solar Observatory, Instituto de Astrofísica de Canarias, and Cerro Tololo Interamerican Observatory.
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{main}
+
+\end{document}

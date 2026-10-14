@@ -1,0 +1,41 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Large competition archives and data caches
+*.zip
+magfilo_data/
+candidates_cache.pkl
+test_gt_cache.pkl
+kernel_outputs/
+submissions_history/
+
+# Intermediate exploration submissions (keeping final champion V80 and submission.csv)
+submission_champion_v6*.csv
+submission_champion_v7*.csv
+
+# Scratch tools and build scripts
+SlopMonster/
+build_notebook.py
+
+# TeX build artifacts (keep PDFs, .tex, .bib, and vector figures)
+technical_report/*.aux
+technical_report/*.log
+technical_report/*.out
+technical_report/*.bbl
+technical_report/*.blg
+technical_report/*.fls
+technical_report/*.fdb_latexmk
+technical_report/*.synctex.gz
+technical_report/*.png
+technical_report/test_*
+technical_report/*backup*
+technical_report/qualitative_check*
+
+# Virtual environments and notebook checkpoints
+.env
+.venv
+env/
+venv/
+.ipynb_checkpoints/
