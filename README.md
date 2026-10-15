@@ -35,6 +35,7 @@ Our solution was developed through iterative algorithmic enhancements targeting 
 * **Submission V68 (Public LB: 0.62)**: Golden Blob Split algorithm decomposing conjoined filament clusters along geodesic bottlenecks into discrete verified instances.
 * **Submission V76 (Public LB: 0.624)**: Guided morphological truncation growth restoring clipped filament tails while preserving strict boundary safety margins.
 * **Submission V80 (Public LB: 0.62, Rank 2 Champion)**: Sovereign Apex pipeline uniting multi-backbone consensus, golden blob decomposition, and boundary calibration to achieve 0.8000 SQ and 0.7341 PQ on benchmark evaluation.
+* **Submission V82 (Public LB: 0.62, Rank 2 Champion)**: Connected triple-consensus truncation expansion applying 47 verified multi-model morphological growth masks (+9,436 px) across held-out test observations while preserving strict zero-overlap and sub-0.8000 matching SQ safety.
 
 ---
 
