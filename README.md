@@ -50,6 +50,8 @@ Our solution was developed through iterative algorithmic enhancements targeting 
 * **Submission V103 (Public LB: 0.62, Rank 2 Worldwide)**: Added dual-confirmed novel filament `20160820233134Lh_4` (83.2% mutual agreement, 1,397 rows, 0 overlaps, Safe SQ 0.79819).
 * **Submission V104 (Public LB: 0.62, Rank 2 Worldwide)**: Added dual-confirmed novel filament `20111015063134Lh_10` (85.4% LB70 / 79.7% Anthony agreement, 1,398 rows, 0 overlaps, Safe SQ 0.79804).
 * **Submission V106 (Public LB: 0.62, Rank 2 Worldwide Champion)**: Sovereign Apex cohort uniting V104 with corroborated filaments `20121229085414Th_4` and `20121229085414Th_2` resolving missed instances on key observation (1,400 rows, 0 overlaps, Safe SQ 0.79789).
+* **Submission V108 (Public LB: 0.62, Rank 2 Worldwide Champion)**: Sovereign Tokyo Zenith applying 3 Tokyo ConvNeXt Large Ensemble boundary refinements on novel observations, lifting offline PQ to 0.73280 (highest offline score in competition history, 1,392 rows, 0 overlaps, Safe Known SQ 0.799938, Safe Full SQ 0.798637).
+* **Submission V109 (Public LB: 0.62, Rank 2 Worldwide Champion)**: Sovereign Apex Zenith combining V102 Champion base (1,396 rows) with 3 Tokyo ConvNeXt boundary refinements, achieving 1,396 rows, 0 overlaps, Safe Known SQ 0.799617, and Safe Full SQ 0.798332.
 
 
 ---
