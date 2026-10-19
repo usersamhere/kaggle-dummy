@@ -12,7 +12,7 @@ This directory contains the self-contained reproduction deliverables for the Sol
 | File | Description |
 | :--- | :--- |
 | `solar_filament_solution_pipeline.ipynb` | Complete end-to-end Python pipeline reproducing all predictions and validation metrics. |
-| `submission.csv` | Final submitted predictions containing 1,396 instances across all 180 test observations with 0 overlaps. |
+| `submission.csv` | Final submitted predictions containing 1,400 instances across all 180 test observations with 0 overlaps. |
 | `technical_report.pdf` | Four-page technical report following the ACM SIGCONF template. |
 | `requirements.txt` | Software packages and tested version pins. |
 

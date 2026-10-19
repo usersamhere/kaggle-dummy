@@ -14,7 +14,7 @@
 For reviewers and competition evaluators seeking direct reproduction, all core deliverables are organized in the [`final_solution/`](final_solution/) directory:
 
 - **[`final_solution/solar_filament_solution_pipeline.ipynb`](final_solution/solar_filament_solution_pipeline.ipynb)**: Self-contained Jupyter notebook reproducing predictions and benchmark metrics.
-- **[`final_solution/submission.csv`](final_solution/submission.csv)**: Final submitted predictions (1,396 instances across all 180 test images, 0 overlaps, COCO Fortran RLE).
+- **[`final_solution/submission.csv`](final_solution/submission.csv)**: Final submitted predictions (1,400 instances across all 180 test images, 0 overlaps, COCO Fortran RLE).
 - **[`final_solution/technical_report.pdf`](final_solution/technical_report.pdf)**: Complete 4-page academic report in ACM SIGCONF format.
 - **[`final_solution/requirements.txt`](final_solution/requirements.txt)**: Python environment package versions.
 - **[`final_solution/README.md`](final_solution/README.md)**: Concise reproduction instructions.
@@ -46,7 +46,10 @@ Our solution was developed through iterative algorithmic enhancements targeting 
 * **Submission V99 (Public LB: 0.62, Promoted to Rank 2 Worldwide)**: Added dual-confirmed filament `20140403081714Th_11` (88.84% mutual IoU between ConvNeXt and U-Net, 1,393 rows, 0 overlaps).
 * **Submission V100 (Public LB: 0.62, Rank 2 Worldwide)**: Added dual-confirmed novel filament `20140514195854Bh_9` (91.22% mutual agreement, 1,394 rows, 0 overlaps).
 * **Submission V101 (Public LB: 0.62, Rank 2 Worldwide)**: Added dual-confirmed novel filament `20171122022450Uh_4` (94.32% mutual agreement, 1,395 rows, 0 overlaps).
-* **Submission V102 (Public LB: 0.62, Rank 2 Worldwide Champion)**: Added dual-confirmed novel filament `20141220201934Ch_13` (88.49% mutual agreement, 1,396 rows, 0 overlaps, Safe SQ 0.79830), securing Rank 2 Worldwide ahead of 1,055+ teams.
+* **Submission V102 (Public LB: 0.62, Rank 2 Worldwide Champion)**: Added dual-confirmed novel filament `20141220201934Ch_13` (88.49% mutual agreement, 1,396 rows, 0 overlaps, Safe SQ 0.79830).
+* **Submission V103 (Public LB: 0.62, Rank 2 Worldwide)**: Added dual-confirmed novel filament `20160820233134Lh_4` (83.2% mutual agreement, 1,397 rows, 0 overlaps, Safe SQ 0.79819).
+* **Submission V104 (Public LB: 0.62, Rank 2 Worldwide)**: Added dual-confirmed novel filament `20111015063134Lh_10` (85.4% LB70 / 79.7% Anthony agreement, 1,398 rows, 0 overlaps, Safe SQ 0.79804).
+* **Submission V106 (Public LB: 0.62, Rank 2 Worldwide Champion)**: Sovereign Apex cohort uniting V104 with corroborated filaments `20121229085414Th_4` and `20121229085414Th_2` resolving missed instances on key observation (1,400 rows, 0 overlaps, Safe SQ 0.79789).
 
 
 ---
