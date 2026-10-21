@@ -14,7 +14,7 @@
 For reviewers and competition evaluators seeking direct reproduction, all core deliverables are organized in the [`final_solution/`](final_solution/) directory:
 
 - **[`final_solution/solar_filament_solution_pipeline.ipynb`](final_solution/solar_filament_solution_pipeline.ipynb)**: Self-contained Jupyter notebook reproducing predictions and benchmark metrics.
-- **[`final_solution/submission.csv`](final_solution/submission.csv)**: Final champion submitted predictions (1,392 instances across all 180 test images, 0 overlaps, COCO Fortran RLE, Peak Offline PQ 0.7328).
+- **[`final_solution/submission.csv`](final_solution/submission.csv)**: Final champion submitted predictions (1,400 instances across all 180 test images, 0 overlaps, COCO Fortran RLE, V120 Apex Absolute, 0.62 PQ).
 - **[`final_solution/technical_report.pdf`](final_solution/technical_report.pdf)**: Complete academic report in ACM SIGCONF format.
 - **[`final_solution/requirements.txt`](final_solution/requirements.txt)**: Python environment package versions.
 - **[`final_solution/README.md`](final_solution/README.md)**: Concise reproduction instructions.
@@ -113,7 +113,7 @@ The academic technical report ([`technical_report.pdf`](technical_report.pdf)) i
 │   ├── README.md                      # Quick evaluator guide
 │   ├── requirements.txt               # Pinned package versions
 │   ├── solar_filament_solution_pipeline.ipynb # Reproducible inference pipeline
-│   ├── submission.csv                 # Champion predictions (1,392 instances)
+│   ├── submission.csv                 # Champion predictions (1,400 instances, V120)
 │   └── technical_report.pdf           # 4-page technical report (ACM SIGCONF)
 ├── technical_report/                  # LaTeX sources, figures, and bibtex
 │   ├── main.tex                       # Source code (compiled to exactly 4 pages)
@@ -136,7 +136,7 @@ The academic technical report ([`technical_report.pdf`](technical_report.pdf)) i
 │   └── SUBMISSION_HISTORY.md          # Complete submission log V13 to V120
 ├── technical_report.pdf               # Root copy of 4-page technical report
 ├── solar_filament_solution_pipeline.ipynb # Root copy of reproduction notebook
-├── submission.csv                     # Root copy of champion submission (V116)
+├── submission.csv                     # Root copy of champion submission (1,400 instances, V120)
 ├── requirements.txt                   # Root package requirements
 └── README.md                          # Main project guide
 ```
