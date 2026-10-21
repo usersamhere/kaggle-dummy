@@ -23,6 +23,7 @@ This document tracks all primary submissions submitted during the competition, d
 | **V102** | 2026-10-19 | 1,396 | 180 | 0 | 0.7327 | 0.62 | Added dual-confirmed novel filament `20141220201934Ch_13` (88.5% mutual agreement). |
 | **V106** | 2026-10-19 | 1,400 | 180 | 0 | 0.7308 | 0.62 | Sovereign Apex cohort: Resolved missed instances on `20121229085414Th`. |
 | **V108** | 2026-10-19 | 1,392 | 180 | 0 | 0.7328 | 0.62 | Tokyo ConvNeXt Zenith: Applied 3 large ensemble boundary updates on novel observations. |
+| **V109** | **2026-10-19 02:03** | **1,396** | **180** | **0** | **0.732112** | **0.62** | **Sovereign Apex Zenith: Official Kaggle Selected Best Submission (408 KiB, Safe SQ 0.798332).** |
 | **V115** | 2026-10-21 03:01 | 1,400 | 180 | 0 | 0.7313 | 0.62 | Sovereign Ultra Synthesis: 7 cross-model boundary updates across Tokyo and Shlok models. |
 | **V116** | 2026-10-21 03:02 | 1,392 | 180 | 0 | 0.732804 | 0.62 | Sovereign Zenith Plus: 4 Shlok tile refinements (Safe Full SQ 0.798643). |
 | **V117** | 2026-10-21 03:18 | 1,392 | 180 | 0 | 0.732808 | Error | Sentinel audit on `20111017113714Th_4`. Tripped host leak gate at Full SQ 0.798648. |

@@ -14,7 +14,7 @@
 For reviewers and competition evaluators seeking direct reproduction, all core deliverables are organized in the [`final_solution/`](final_solution/) directory:
 
 - **[`final_solution/solar_filament_solution_pipeline.ipynb`](final_solution/solar_filament_solution_pipeline.ipynb)**: Self-contained Jupyter notebook reproducing predictions and benchmark metrics.
-- **[`final_solution/submission.csv`](final_solution/submission.csv)**: Final champion submitted predictions (1,400 instances across all 180 test images, 0 overlaps, COCO Fortran RLE, V120 Apex Absolute, 0.62 PQ).
+- **[`final_solution/submission.csv`](final_solution/submission.csv)**: Final champion submitted predictions (1,396 instances across all 180 test images, 0 overlaps, COCO Fortran RLE, V109 Sovereign Apex Zenith, 0.62 PQ).
 - **[`final_solution/technical_report.pdf`](final_solution/technical_report.pdf)**: Complete academic report in ACM SIGCONF format.
 - **[`final_solution/requirements.txt`](final_solution/requirements.txt)**: Python environment package versions.
 - **[`final_solution/README.md`](final_solution/README.md)**: Concise reproduction instructions.
@@ -51,7 +51,7 @@ Our solution was developed through iterative algorithmic enhancements targeting 
 * **Submission V104 (Public LB: 0.62)**: Added dual-confirmed novel filament `20111015063134Lh_10` (85.4% LB70 / 79.7% Anthony agreement, 1,398 rows, 0 overlaps, Safe SQ 0.79804).
 * **Submission V106 (Public LB: 0.62)**: Sovereign Apex cohort uniting V104 with corroborated filaments `20121229085414Th_4` and `20121229085414Th_2` resolving missed instances on key observation (1,400 rows, 0 overlaps, Safe SQ 0.79789).
 * **Submission V108 (Public LB: 0.62)**: Sovereign Tokyo Zenith applying 3 Tokyo ConvNeXt Large Ensemble boundary refinements on novel observations, lifting offline PQ to 0.73280 (highest offline score in competition history, 1,392 rows, 0 overlaps, Safe Known SQ 0.799938, Safe Full SQ 0.798637).
-* **Submission V109 (Public LB: 0.62)**: Sovereign Apex Zenith combining V102 Champion base (1,396 rows) with 3 Tokyo ConvNeXt boundary refinements, achieving 1,396 rows, 0 overlaps, Safe Known SQ 0.799617, and Safe Full SQ 0.798332.
+* **Submission V109 (Public LB: 0.62 Champion)**: Sovereign Apex Zenith combining V102 Champion base (1,396 rows) with 3 Tokyo ConvNeXt boundary refinements, achieving 1,396 rows, 180 observations, 0 overlaps, Safe Known SQ 0.799617, and Safe Full SQ 0.798332 (Official Kaggle Selected Best Submission).
 * **Submission V110 (Public LB: 0.62)**: Sovereign COCO-Aligned applying multi-annotator uncorroborated instance pruning on 20160513133714Th using full COCO ground-truth consensus (1,388 rows, 180 images, 0 overlaps, Safe Known SQ 0.799612, Safe Full SQ 0.798373).
 * **Submission V111 (Public LB: 0.62)**: Sovereign V96 Anchor Base with multi-annotator noise pruning (1,388 rows, 180 images, 0 overlaps, Safe Known SQ 0.799612, Safe Full SQ 0.798343).
 * **Submission V112 (Public LB: 0.62)**: Sovereign V102 Champion Base with multi-annotator noise pruning (1,392 rows, 180 images, 0 overlaps, Safe Known SQ 0.799292, Safe Full SQ 0.798038).
@@ -113,7 +113,7 @@ The academic technical report ([`technical_report.pdf`](technical_report.pdf)) i
 │   ├── README.md                      # Quick evaluator guide
 │   ├── requirements.txt               # Pinned package versions
 │   ├── solar_filament_solution_pipeline.ipynb # Reproducible inference pipeline
-│   ├── submission.csv                 # Champion predictions (1,400 instances, V120)
+│   ├── submission.csv                 # Champion predictions (1,396 instances, V109)
 │   └── technical_report.pdf           # 4-page technical report (ACM SIGCONF)
 ├── technical_report/                  # LaTeX sources, figures, and bibtex
 │   ├── main.tex                       # Source code (compiled to exactly 4 pages)
@@ -136,7 +136,7 @@ The academic technical report ([`technical_report.pdf`](technical_report.pdf)) i
 │   └── SUBMISSION_HISTORY.md          # Complete submission log V13 to V120
 ├── technical_report.pdf               # Root copy of 4-page technical report
 ├── solar_filament_solution_pipeline.ipynb # Root copy of reproduction notebook
-├── submission.csv                     # Root copy of champion submission (1,400 instances, V120)
+├── submission.csv                     # Root copy of champion submission (1,396 instances, V109)
 ├── requirements.txt                   # Root package requirements
 └── README.md                          # Main project guide
 ```

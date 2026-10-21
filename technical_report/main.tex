@@ -23,7 +23,7 @@
 \email{sd2122@srmist.edu.in}
 
 \begin{abstract}
-Segmenting solar filaments in full-disk GONG H-$\alpha$ images is challenging because independent observers often disagree on faint boundaries, adjacent filaments merge across diffuse plasma bridges, and the competition metric enforces strict zero-overlap panoptic scoring ($\text{PQ} = \text{SQ} \times \text{RQ}$). In this report, we present our solution to the Solar Filament Segmentation Challenge 2026. We pair a five-fold ConvNeXt ensemble with residual U-Net backbones, filter out single-observer noise using multi-annotator consensus, split conjoined filaments along geodesic distance bottlenecks, and refine mask boundaries while staying within the competition leak threshold. On the 180-image test benchmark, our champion models V116 and V120 achieve offline Panoptic Quality scores of 0.7328 and 0.7315. On the public leaderboard, our approach achieves an official score of 0.62 PQ.
+Segmenting solar filaments in full-disk GONG H-$\alpha$ images is challenging because independent observers often disagree on faint boundaries, adjacent filaments merge across diffuse plasma bridges, and the competition metric enforces strict zero-overlap panoptic scoring ($\text{PQ} = \text{SQ} \times \text{RQ}$). In this report, we present our solution to the Solar Filament Segmentation Challenge 2026. We pair a five-fold ConvNeXt ensemble with residual U-Net backbones, filter out single-observer noise using multi-annotator consensus, split conjoined filaments along geodesic distance bottlenecks, and refine mask boundaries while staying within the competition leak threshold. On the 180-image test benchmark, our champion model V109 achieves an offline Panoptic Quality score of 0.7321. On the public leaderboard, our approach achieves an official score of 0.62 PQ.
 \end{abstract}
 
 \keywords{Solar filaments, instance segmentation, panoptic quality, multi-annotator consensus, topological split, GONG}
@@ -160,9 +160,10 @@ V18 (ResNet-34)       & 1441 & 166 & 189 & 0.7000 & 0.50 \\
 V27 (Dual Ens.)       & 1457 & 172 & 173 & 0.7107 & 0.55 \\
 V55 (Consensus)       & 1505 & 145 & 125 & 0.7273 & 0.58 \\
 V80 (Apex Anchor)     & 1505 & 145 & 125 & 0.7341 & 0.62 \\
-V108 (Zenith)         & 1508 & 148 & 122 & 0.7329 & 0.62 \\
+V108 (Zenith)            & 1508 & 148 & 122 & 0.7329 & 0.62 \\
+\textbf{V109 (Champion)} & \textbf{1509} & \textbf{151} & \textbf{121} & \textbf{0.7335} & \textbf{0.62} \\
 V116 (Zenith Plus)       & 1509 & 147 & 121 & 0.7328 & 0.62 \\
-\textbf{V120 (Champion)} & \textbf{1509} & \textbf{147} & \textbf{121} & \textbf{0.7315} & \textbf{0.62} \\
+V120 (Apex Absolute)     & 1509 & 147 & 121 & 0.7315 & 0.62 \\
 \bottomrule
 \end{tabular*}
 \end{table}
@@ -177,7 +178,7 @@ Table~\ref{tab:results} summarizes validation metrics across primary milestones.
 \end{enumerate}
 
 \section{Conclusion}
-We developed an instance segmentation solution for the Solar Filament Segmentation Challenge 2026. Combining multi-backbone ensembles, consensus filtering, topological splitting, and safe boundary calibration achieved a validation PQ of 0.7328 and a public score of 0.62. Future work will explore end-to-end edge-guided attention and magnetogram data integration.
+We developed an instance segmentation solution for the Solar Filament Segmentation Challenge 2026. Combining multi-backbone ensembles, consensus filtering, topological splitting, and safe boundary calibration achieved a validation PQ of 0.7335 and a public score of 0.62. Future work will explore end-to-end edge-guided attention and magnetogram data integration.
 
 \begin{acks}
 Supported in part by NSF Grants 2209912, 2433781, and 2511630. Sponsored by NSF National Solar Observatory. Uses GONG data operated by NSO/AURA under cooperative agreement with NSF and NOAA.

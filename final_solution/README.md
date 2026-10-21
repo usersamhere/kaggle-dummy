@@ -12,7 +12,7 @@ This directory contains the self-contained reproduction deliverables for the Sol
 | File | Description |
 | :--- | :--- |
 | `solar_filament_solution_pipeline.ipynb` | Complete end-to-end Python pipeline reproducing all predictions and validation metrics. |
-| `submission.csv` | Final champion predictions containing 1,400 instances across all 180 test observations with strict 0 overlaps (V120 Sovereign Apex Absolute, submitted 2026-10-21 03:37 UTC, 0.62 PQ). |
+| `submission.csv` | Final champion predictions containing 1,396 instances across all 180 test observations with strict 0 overlaps (V109 Sovereign Apex Zenith, Official Selected Best Submission, 408 KiB, 0.62 PQ). |
 | `technical_report.pdf` | Comprehensive academic technical report following the ACM SIGCONF template. |
 | `requirements.txt` | Software packages and tested version pins. |
 
@@ -36,4 +36,4 @@ The execution automatically validates six constraint criteria:
 3. Non-empty foreground masks for every instance.
 4. Strict zero-pixel overlap between all predicted masks.
 5. Column-major (Fortran-order) COCO compressed RLE bitstring formatting.
-6. Benchmark Panoptic Quality reproduction ($\text{PQ} = 0.7315$, $\text{SQ} = 0.7983$, $\text{RQ} = 0.9163$ for V120).
+6. Benchmark Panoptic Quality reproduction ($\text{PQ} = 0.7321$, $\text{SQ} = 0.7983$, $\text{RQ} = 0.9171$ for V109).
