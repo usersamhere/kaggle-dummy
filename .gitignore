@@ -8,12 +8,21 @@ __pycache__/
 magfilo_data/
 candidates_cache.pkl
 test_gt_cache.pkl
+full_180_gt_cache.pkl
+test_images/
+activity_audit.csv
 kernel_outputs/
 submissions_history/
 
 # Intermediate exploration submissions (keeping final champion V80 and submission.csv)
 submission_champion_v6*.csv
 submission_champion_v7*.csv
+submission_champion_v9*.csv
+submission_champion_v11[0-5]*.csv
+submission_champion_v117*.csv
+submission_champion_v118*.csv
+submission_champion_v119*.csv
+submission_breakthrough_*.csv
 
 # Scratch tools and build scripts
 SlopMonster/
