@@ -128,6 +128,7 @@ The academic technical report ([`technical_report.pdf`](technical_report.pdf)) i
 │   ├── boundary_refinement/           # Screening, rankers, and activity threshold tools
 │   ├── analysis/                      # Diagnostic scripts and metric gap ablations
 │   └── baselines/                     # Reference community notebooks and baselines
+├── kaggle_kernels/                    # Standalone Kaggle model inference & training kernels
 ├── docs/                              # Deep-dive technical documentation
 │   ├── README.md                      # Documentation index
 │   ├── APPROACHES_GUIDE.md            # Detailed guide to each approach tested
