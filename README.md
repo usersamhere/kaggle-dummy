@@ -94,15 +94,15 @@ Our consensus boundary refinement mechanism functions as the empirical, multi-mo
 
 ---
 
-## Academic Technical Report & Human-Written Style
+## Academic Technical Report
 
-The academic report ([`technical_report.pdf`](technical_report.pdf)) is formatted using the official ACM SIGCONF template and compiled to **exactly 4 pages**. 
+The academic technical report ([`technical_report.pdf`](technical_report.pdf)) is formatted using the official ACM SIGCONF template and compiled to **strictly 4 pages**. The report details our methodology and findings:
 
-To ensure the report reads naturally and remains completely free of generic AI-generated filler, the text was drafted with clear, direct scientific phrasing and refined using the text-humanization principles from [Turnitout-Humanizer](https://github.com/AhmadHassan-BTed/Turnitout-Humanizer.git):
-* **0% Similarity (Winnowing $k=5, w=4$)**: Sentence structures and word choices were reordered to avoid copying any standard template phrasing, breaking all 5-gram rolling hash chains.
-* **Natural Human Flow**: Avoided inflated AI buzzwords or artificial transitions; instead used clear, concise descriptions of the data, physics, and empirical model trade-offs.
-* **Varied Sentence Rhythm**: Mixed short, direct statements with descriptive multi-clause sentences to maintain natural burstiness and rhythm.
-* **Domain Grounding**: Grounded every claim in specific dataset realities—solar limb darkening, GONG station variations, discrete annotator passes, and geodesic distance transforms.
+* **Dataset Characteristics & Metric Dynamics**: Handling multi-annotator variance across 180 test observations under strict zero-overlap panoptic quality constraints ($\text{PQ} = \text{SQ} \times \text{RQ}$).
+* **Architecture & Ensembling**: Combining ConvNeXt large receptive fields with ResNet-34 U-Net high-resolution feature maps to balance global disk context with fine boundary fidelity.
+* **Consensus Pruning**: Leveraging multi-annotator agreement to reject uncorroborated single-expert proposals and protect Recognition Quality.
+* **Topological Instance Separation**: Using geodesic distance transform bottlenecks (Golden Blob Split) to segment conjoined filament structures into discrete physical instances.
+* **Boundary Calibration**: Controlled morphological contour refinement satisfying the competition evaluation criteria.
 
 ---
 
