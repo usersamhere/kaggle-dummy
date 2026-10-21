@@ -14,23 +14,11 @@ activity_audit.csv
 kernel_outputs/
 submissions_history/
 
-# Intermediate exploration submissions (keeping final champion V80 and submission.csv)
-submission_champion_v6*.csv
-submission_champion_v7*.csv
-submission_champion_v9*.csv
-submission_champion_v11[0-5]*.csv
-submission_champion_v117*.csv
-submission_champion_v118*.csv
-submission_champion_v119*.csv
-submission_breakthrough_*.csv
-submissions/submission_champion_v6*.csv
-submissions/submission_champion_v7*.csv
-submissions/submission_champion_v9*.csv
-submissions/submission_champion_v11[0-5]*.csv
-submissions/submission_champion_v117*.csv
-submissions/submission_champion_v118*.csv
-submissions/submission_champion_v119*.csv
-submissions/submission_breakthrough_*.csv
+# Submissions directory (keep final champion submission.csv and final_solution/submission.csv)
+submissions/
+submission_*.csv
+lb_download/
+CODEX_CONTEXT.md
 
 # Scratch tools and build scripts
 SlopMonster/

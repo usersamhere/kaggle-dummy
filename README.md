@@ -133,7 +133,6 @@ To ensure the report reads naturally and remains completely free of generic AI-g
 │   ├── APPROACHES_GUIDE.md            # Detailed guide to each approach tested
 │   ├── EVALUATION_AND_LEAK_ANALYSIS.md# Metric math & evaluator leak threshold analysis
 │   └── SUBMISSION_HISTORY.md          # Complete submission log V13 to V120
-├── submissions/                       # Historical submission archives
 ├── technical_report.pdf               # Root copy of 4-page technical report
 ├── solar_filament_solution_pipeline.ipynb # Root copy of reproduction notebook
 ├── submission.csv                     # Root copy of champion submission (V116)
