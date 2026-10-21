@@ -23,6 +23,14 @@ submission_champion_v117*.csv
 submission_champion_v118*.csv
 submission_champion_v119*.csv
 submission_breakthrough_*.csv
+submissions/submission_champion_v6*.csv
+submissions/submission_champion_v7*.csv
+submissions/submission_champion_v9*.csv
+submissions/submission_champion_v11[0-5]*.csv
+submissions/submission_champion_v117*.csv
+submissions/submission_champion_v118*.csv
+submissions/submission_champion_v119*.csv
+submissions/submission_breakthrough_*.csv
 
 # Scratch tools and build scripts
 SlopMonster/
@@ -35,6 +43,7 @@ technical_report/*.out
 technical_report/*.bbl
 technical_report/*.blg
 technical_report/*.fls
+technical_report/*.cut
 technical_report/*.fdb_latexmk
 technical_report/*.synctex.gz
 technical_report/*.png
