@@ -28,4 +28,4 @@ This document tracks all primary submissions submitted during the competition, d
 | **V117** | 1,392 | 180 | 0 | 0.732808 | Error | Sentinel audit on `20111017113714Th_4`. Tripped host leak gate at Full SQ 0.798648. |
 | **V118** | 1,400 | 180 | 0 | 0.731405 | 0.62 | Sovereign Zenith Apex: 7 consensus boundary updates within 400+ point safety margin. |
 | **V119** | 1,400 | 180 | 0 | 0.731450 | 0.62 | Transcendent Apex: 12 cumulative cross-model refinements across Anthony, LB70, and Tokyo. |
-| **V120** | **1,400** | **180** | **0** | **0.731492** | **0.62** | **Sovereign Apex Absolute: Peak 1,400-row offline champion. Rank 3 Worldwide.** |
+| **V120** | **1,400** | **180** | **0** | **0.731492** | **0.62** | **Sovereign Apex Absolute: Peak 1,400-row offline champion (0.62 PQ).** |

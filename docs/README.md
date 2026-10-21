@@ -1,6 +1,6 @@
 # Documentation Index
 
-Welcome to the technical documentation for our solution to the **Solar Filament Segmentation Challenge 2026** (Rank 3 Worldwide, Public Score 0.62 PQ).
+Welcome to the technical documentation for our solution to the **Solar Filament Segmentation Challenge 2026** (Public Score: 0.62 PQ).
 
 ---
 

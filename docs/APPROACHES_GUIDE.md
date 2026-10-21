@@ -76,4 +76,4 @@ The MAGFiLO dataset consists of full-disk GONG H-$\alpha$ images ($2048 \times 2
 * **Result**:
   - **V116 Champion**: Peak offline PQ of **0.732804** (1,392 rows).
   - **V120 Champion**: Peak 1,400-row offline PQ of **0.7314915** (1,400 rows).
-  - Secured **Rank 3 Worldwide** on the Public Leaderboard (0.62 PQ).
+  - Achieved a Public Leaderboard score of 0.62 PQ.

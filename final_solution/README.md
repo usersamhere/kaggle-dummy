@@ -3,7 +3,7 @@
 This directory contains the self-contained reproduction deliverables for the Solar Filament Segmentation Challenge 2026.
 
 **Author**: Sayandeep Dutta (SRM Institute of Science and Technology, `sd2122@srmist.edu.in`)  
-**Leaderboard Standing**: Rank 3 Worldwide (0.62 PQ)  
+**Leaderboard Score**: 0.62 PQ  
 
 ---
 

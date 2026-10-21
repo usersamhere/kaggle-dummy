@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build and strictly verify Submission Breakthrough V100 Sovereign Apex.
 
-Base Anchor: submission_champion_v99_sovereign_apex.csv (1393 rows, 0.62 LB COMPLETE, Rank 2 Worldwide)
+Base Anchor: submission_champion_v99_sovereign_apex.csv (1393 rows, 0.62 LB COMPLETE)
 Innovation:
 Add ultra-high consensus novel filament 20140514195854Bh_9 from Tokyo ConvNeXt ensemble
 (confirmed with 91.22% mutual IoU by Anthony Blended U-Net).

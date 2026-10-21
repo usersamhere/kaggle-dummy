@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build and strictly verify Submission Breakthrough V109 Sovereign Apex Zenith.
 
-Base Anchor: submission_champion_v102_sovereign_apex.csv (1396 rows, 0.62 LB COMPLETE Rank 2 Champion)
+Base Anchor: submission_champion_v102_sovereign_apex.csv (1396 rows, 0.62 LB COMPLETE)
 Innovation:
 Tokyo 5-fold ConvNeXt Large Ensemble Boundary Refinement on novel test images:
 1. 20220714185352Th_4 replaced with Tokyo 20220714185352Th_3 (90.0% mutual IoU, dIoU = +0.028422)
